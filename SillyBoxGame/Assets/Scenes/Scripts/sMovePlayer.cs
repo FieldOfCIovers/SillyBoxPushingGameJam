@@ -2,13 +2,10 @@ using UnityEngine;
 
 public class sMovePlayer : MonoBehaviour
 {
+    public sPlayerMain playerMain;
 
-    private int forwardMove = 1;
-    private int backwardMove = 0;
-    private int rightMove = 0;
-    private int leftMove = 0;
-
-    public float range = 5;
+    public bool canMove = true;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,63 +16,66 @@ public class sMovePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerMovement();
+        if (playerMain.playerWin == false)
+        {
+            PlayerMovement();
+        }
+        else
+        {
+           
+        }
+        
+
     }
 
     void PlayerMovement()
     {
         if (Input.GetKeyUp(KeyCode.D) )
         {
-            transform.position += new Vector3(0, 0, 2);
-            rightMove++;
+            transform.eulerAngles = new Vector3(0, 0, 0);
+            if (canMove == true)
+            {
+                transform.position += new Vector3(0, 0, 2);
+            }
+            
+            
+
         }
 
         if (Input.GetKeyUp(KeyCode.A) )
         {
-            transform.position += new Vector3(0, 0, -2);
-            transform.Rotate(0, 90, 0);
-            leftMove++;
+            transform.eulerAngles = new Vector3(0, 180, 0);
+            if (canMove == true)
+            {
+                transform.position += new Vector3(0, 0, -2);
+            }
+                
+            
+
         }
 
         if (Input.GetKeyUp(KeyCode.W) )
         {
-            transform.position += new Vector3(-2, 0, 0);
-            forwardMove++;
+            transform.eulerAngles = new Vector3(0, -90, 0);
+            if (canMove == true)
+            {
+                transform.position += new Vector3(-2, 0, 0);
+            }
+            
+
         }
 
         if (Input.GetKeyUp(KeyCode.S))
         {
-            transform.position += new Vector3(2, 0, 0);
-            backwardMove++;
-        }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Green")
-        {
-            print("Entered");
-        }
-
-        if (other.gameObject.tag == "Red")
-        {
-            print("Stopped");
-        }
-    }
-
-    void RayCastCollision()
-    {
-        Vector3 direction = Vector3.forward;
-        Ray theRay = new Ray(transform.position, transform.TransformDirection(direction*range));
-        Debug.DrawRay(transform.position, transform.TransformDirection(direction * range));
-
-        if (Physics.Raycast(theRay,out RaycastHit hit, range))
-        {
-            if (hit.collider.tag == "Border")
+            transform.eulerAngles = new Vector3(0, 90, 0);
+            if (canMove == true)
             {
-                print("The Border");
+                transform.position += new Vector3(2, 0, 0);
             }
-        }
+            
 
+        }
     }
+
+    
 }
