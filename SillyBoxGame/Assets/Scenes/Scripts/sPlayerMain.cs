@@ -5,7 +5,7 @@ using UnityEngine;
 public class sPlayerMain : MonoBehaviour
 {
     public sMovePlayer movePlayer;
-    public float range = 5;
+    public float range = 3;
 
     public int playerMoney = 100;
     public bool playerWin = false;
@@ -20,6 +20,11 @@ public class sPlayerMain : MonoBehaviour
     void Update()
     {
         RayCastCollision();
+
+        if ((Input.GetKeyUp(KeyCode.Escape)))
+        {
+            Application.Quit();
+        }
     }
 
     void OnTriggerEnter(Collider other)
